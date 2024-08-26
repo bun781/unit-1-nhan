@@ -18,4 +18,4 @@ for wordBlock in splitString:
 ```
 
 ## Proof of Work
-<img src = "https://github.com/user-attachments/assets/56811ac3-e433-4746-837e-8cba54496463" width = "800">
+<img src = "https://github.com/user-attachments/assets/56811ac3-e433-4746-837e-8cba54496463">
