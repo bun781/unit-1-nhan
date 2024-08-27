@@ -1,7 +1,7 @@
 # Write a program to sort alphabetically three names entered by the user. Note: Assume that only the first letter of names are the same. 
 
 ## Code
-Sorting with the list can be a function, but since we are only dealing with 3 names, and I am not sure how to do it, the code is as follows:
+Sorting with the list can be a function. But since we are only dealing with 3 names, and I am not sure how to do it, the code is as follows:
 ```.py
 #array to compare
 compareArray = [list(input(f"Enter name {i}: ")) for i in range(3)]
