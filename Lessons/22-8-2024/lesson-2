@@ -7,6 +7,10 @@ the first 1 is the Error parity check, 1 if number of 1s is even, otherwise 0
 Python program to add parity bit to a string.
 ```.py
 inputString = input("Insert your number here")
+for num in inputString:
+    if num not in '01':
+        print("Binary Only Please")
+        exit()
 inputArray = [int(bit) for bit in inputString]
 parityBit = 0
 for bit in inputArray:
