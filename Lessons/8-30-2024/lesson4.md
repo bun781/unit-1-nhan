@@ -29,13 +29,16 @@ for num in range(100):
 # center justify
 ```.py
 def centerJust(input1, len1, filler):
-    s = input1
-    for i in range(len1-len(input1)):
-        if i % 2 == 0:
-            s = filler + s
-        else:
-            s = s + filler
-    return s
+    if len1 - len(input1) > 0:
+        s = input1
+        for i in range(len1-len(input1)):
+            if i % 2 == 0:
+                s = filler + s
+            else:
+                s = s + filler
+        return s
+    else:
+        print(y)
 
 print(centerJust("hello", 10, "."))
 ```
