@@ -19,3 +19,6 @@ for wordBlock in splitString:
 
 ## Proof of Work
 <img src = "https://github.com/user-attachments/assets/56811ac3-e433-4746-837e-8cba54496463">
+
+## Flow Chart
+![image](https://github.com/user-attachments/assets/6bf1465f-852c-44a0-bdc1-f51c315161f4)
