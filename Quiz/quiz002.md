@@ -31,9 +31,14 @@ results = False
 for i in range(len(A)):
     if A[i] == 20 or B[i] == 20 or A[i] + B[i] == 20:
         results = True
+        break
 print(results)
 ```
 
 ## Proof of Work
 <img src = "https://github.com/user-attachments/assets/ccf8535f-3df8-4f2d-8126-422f92a5df2f" width = "300">
 <img src = "https://github.com/user-attachments/assets/47314147-7c06-479d-a3e6-b86efaf2ad3e" width = 300">
+
+## Flow Chart
+![image](https://github.com/user-attachments/assets/9039a555-6d9c-49a2-9756-085fd83119ef)
+
