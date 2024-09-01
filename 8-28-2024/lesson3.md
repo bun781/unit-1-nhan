@@ -53,7 +53,7 @@ option = int(option)
 if option == 1:
     print("Option 1: Show a multiplication table") #show function
 
-    #input and validation
+    #input and validation5
     num1 = input("Input the multiplication table you like to see (1-9): ")
     while not checkDigit(num1, '123456789', "Option not valid, numbers from 1 to 9 only"):
         num1 = input("Input the multiplication table you like to see (1-9): ")
@@ -110,7 +110,9 @@ if option == 4:
     iterationCount = 0
     while num4 != 0 and len(num4) > 1:
         iterationCount += 1
+        cIteration = 1
         for digit in num4:
+            print(f"digit is {digit}")
             cIteration *= int(digit)
         num4 = str(cIteration)
     print(iterationCount)
