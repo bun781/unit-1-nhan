@@ -100,7 +100,7 @@ if option == 3:
         print(i)
 
 if option == 4:
-    print("Option 3: Count up to a number by steps")
+    print("Option 4: Count how many times a number can be reduced")
 
     #input and validation
     num4 = input("Input your number: ")
