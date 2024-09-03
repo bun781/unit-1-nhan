@@ -18,7 +18,7 @@ def mystery_box3(a:int, b:int, c:int):
     biggest_possible_guess = a * b * c
 
     for i in range(smallest_possible_guess, biggest_possible_guess+1):
-        if i % a == 0 and i % b == 0 and i % c == 0:
+        if i % a == 0 and i % b == 0 and i % c == 0: #check if divisible by all
             return i
 print(mystery_box3(8, 6, 2))
 print(mystery_box3(18, 4, 7))
