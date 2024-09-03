@@ -44,7 +44,7 @@ def mystery_box1(msg:str, lowered:bool):
         for i in range(len(original_string)-1, -1, -1): #iterates string backwards
             new_string += original_string[i]
 
-    print(new_string)
+    return new_string
 
 mystery_box1("Hello", True)
 mystery_box1("Hello", False)
