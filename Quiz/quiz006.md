@@ -1,4 +1,4 @@
-# Quiz 005
+# Quiz 006
 
 ## Paper Solution
 
@@ -36,3 +36,6 @@ generate_10_passwords(20, True)
 ![image](https://github.com/user-attachments/assets/7dcdb351-b9ec-4244-9054-5ccb324ce7c4)
 
 ## Flow Chart
+
+![image](https://github.com/user-attachments/assets/04bca104-be22-4dd9-8fd1-927d9947af80)
+
