@@ -1,6 +1,7 @@
 # Quiz 008
 
 ## Paper Solution
+![image](https://github.com/user-attachments/assets/36f7570c-93b1-490c-98a6-d7b7ad96ca65)
 
 ## Code
 HL Code:
