@@ -1,6 +1,7 @@
 # Quiz 005
 
 ## Paper Solution
+![image](https://github.com/user-attachments/assets/693817a2-6888-4f5d-9bfb-aa3a87b45bff)
 
 ## Code
 SL Code
