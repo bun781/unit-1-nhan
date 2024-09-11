@@ -1,7 +1,7 @@
 # Quiz 008
 
 ## Paper Solution
-![image](https://github.com/user-attachments/assets/36f7570c-93b1-490c-98a6-d7b7ad96ca65)
+<img src = "https://github.com/user-attachments/assets/36f7570c-93b1-490c-98a6-d7b7ad96ca65" width = "300">
 
 ## Code
 HL Code:
