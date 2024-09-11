@@ -49,5 +49,6 @@ print(sum_letters)
 <img src = "https://github.com/user-attachments/assets/630f6d71-1b90-4b5d-bbdc-e91aa3bc2180" width = "300">
 
 ## Flow Chart
-![image](https://github.com/user-attachments/assets/54990503-c55f-40f8-b3c2-e95c77e67213)
+![image](https://github.com/user-attachments/assets/15ec05ec-9a59-4496-b22e-95f9b2e97272)
+
 
