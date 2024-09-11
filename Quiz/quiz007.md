@@ -1,7 +1,7 @@
 # Quiz 007
 
 ## Paper Solution
-![image](https://github.com/user-attachments/assets/b72ddc17-cb8c-4885-9c8e-db995e1527e4)
+<img src = "https://github.com/user-attachments/assets/b72ddc17-cb8c-4885-9c8e-db995e1527e4" width = "300">
 
 ## Code
 ```.py
@@ -27,3 +27,4 @@ print(x) #output x sorted
 
 
 ## Flow Diagram
+![image](https://github.com/user-attachments/assets/8bc86b9e-1e14-48bf-bdde-66b02f3a233d)
