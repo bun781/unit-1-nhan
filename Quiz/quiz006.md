@@ -1,6 +1,7 @@
-![image](https://github.com/user-attachments/assets/25ff393a-717e-477b-98e5-827bac5fe5f8)# Quiz 006
+# Quiz 006
 
 ## Paper Solution
+![Uploading image.png…]()
 
 ## Code
 ```.py
