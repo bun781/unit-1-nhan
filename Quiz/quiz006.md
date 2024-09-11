@@ -1,8 +1,7 @@
 # Quiz 006
 
 ## Paper Solution
-![image](https://github.com/user-attachments/assets/204ca609-a3ad-4247-b387-36a86bfee4a0)
-
+<img src = "https://github.com/user-attachments/assets/204ca609-a3ad-4247-b387-36a86bfee4a0" width = "300">
 
 ## Code
 ```.py
