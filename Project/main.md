@@ -7,7 +7,7 @@ Lately, he has complained tthat he cannot remember all the passcodes anymore, as
 ## Proposed Solution
 To make the process easier for my client, I propose a hidden system that allows my client to manage the passcodes for his bikes.
 
-This system will be embedded and disguised as a simple software to search up the data and rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a password manager that allows my client to perform CRUD operations on the passcodes. 
+This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a password manager that allows my client to perform CRUD operations on the passcodes. 
 
 ## Success Criteria
 1. The software checks and accepts the appropriate user inputs to perform the search operation.
