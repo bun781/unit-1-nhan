@@ -15,7 +15,7 @@ This system will be embedded and disguised as a simple software to search up the
 3. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
 4. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
 5. In the password manager, the user would be able to perform:
-   * CRUD operations (Create, Replace, Update, Delete) on bike passcode
+   * CRUD operations (Create, Read, Update, Delete) on bike passcode
    * Change the secret code
 6. In password manager mode, the user should be able to perform CRUD operations (Create, Replace, Update, Delete):
    * Add a password (for example, for a website).
