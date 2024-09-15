@@ -53,16 +53,15 @@ def console_text(message:str,color:str):
     end = "\033[00m"    #stop further message from accidentally being color
     return f"{color}{message}{end}" #return the colored message as f string
 def bike_input_check_secret_entered():
+    global bike_price
     global accepted #let other functions know if number is accepted
     global bike_num#let other functions know about bike_num
-
+    global lowest_bike_num
+    global highest_bike_num
     accepted = False
     secret_access = False
 
-    lowest_bike_num = 1
-    highest_bike_num = 203
-
-    text = "Welcome to Karuizawa Rentals, please check the rental rate per hour by entering the bike number (01 - 203): "
+    text = f"Welcome to Karuizawa Rentals, please check the rental rate per hour by entering the bike number ({lowest_bike_num} - {highest_bike_num}): "
     color = "\33[0;35m"
     while not accepted:
         bike_num_str = input(console_text(text, color))  # ask for input
@@ -71,14 +70,14 @@ def bike_input_check_secret_entered():
             break
 
         elif not valid(bike_num_str, '0123456789'): #check if input is number
-            text = "Only whole numbers between 1 and 203, please try again: "
+            text = f"Only whole numbers between ({lowest_bike_num} - {highest_bike_num}), please try again: "
             color = "\33[0;33m"
             continue  #go back to asking for input
 
         bike_num = int(bike_num_str)  # convert input to integer
 
         if bike_num < lowest_bike_num or bike_num > highest_bike_num: #check if number is valid
-            text = "Only whole numbers between 1 and 203, please try again: "
+            text = f"Only whole numbers between ({lowest_bike_num} - {highest_bike_num}), please try again: "
             color = "\33[0;33m"
             continue #go back to asking for input
         else:
@@ -86,10 +85,13 @@ def bike_input_check_secret_entered():
     return secret_access
 def bike_output():
     # print the bike rental rate
-    print(console_text(f'\n You can rent bike {bike_num:02} for ¥{bike_price[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
+    print(console_text(f'\nYou can rent bike {bike_num:02} for ¥{bike_price[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
     print("-------------") #for clarity #print the bike rental rate
 def load_bike_data():
     global bike_price
+    global lowest_bike_num
+    global highest_bike_num
+
     bike_price = {}
     with open('bike_data.csv', mode = 'r') as f:
         data = f.readlines()
@@ -104,6 +106,8 @@ def load_bike_data():
         #add to bike_data (a dictionary)
         bike_price[name] = int(price)
 
+    lowest_bike_num = int(list(bike_price.keys())[0]) #change the dictiionary's keys into a list and find the index, then change it into an integer
+    highest_bike_num = int(list(bike_price.keys())[-1])
 #function for passcode manager
 def secret_menu():
     for i in range(200): #as window
@@ -154,7 +158,10 @@ def option_select_and_do():
         normal_mode = True
 
 def view_passcode():
-    print('1')
+    bike_num = input_num_in_range(f"Which bike's passcode would you want to update? ({lowest_bike_num} - {highest_bike_num}): ", f"Only bike {lowest_bike_num} to {highest_bike_num} exists ", lowest_bike_num, highest_bike_num)
+    passcode_final = passcode[str(bike_num)]
+    print(f'the bike passcode is {passcode_final}')
+
 def update_passcode():
     print('1')
 def create_passcode():
@@ -175,16 +182,20 @@ def load_passcode():
 
         #unpacking
         name = data_separated[0]
-        passcode = data_separated[1]
+        passcoded = data_separated[1]
 
         #add to passcode (a dictionary)
-        pass_code[name] = passcode
+        passcode[name] = passcoded
+
 
 
 ######################################################################################
 
+
+
 normal_mode = True #keep track which mode software is running in
 load_bike_data()
+
 passcode_loaded = False
 while True:
     menu_loaded = False
