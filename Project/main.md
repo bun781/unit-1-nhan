@@ -20,7 +20,7 @@ This system will be embedded and disguised as a simple software to search up the
 6. In password manager mode, the user should be able to perform CRUD operations (Create, Replace, Update, Delete):
    * Add a password (for example, for a website).
    * View the stored passwords (only if they re-enter the secret code).
-7. The passwords will be stored in a text file. They are also encrypted.
+7. The passwords will be stored in a text file. They are also encrypted. 
 
 
 # Criterion B: Design
