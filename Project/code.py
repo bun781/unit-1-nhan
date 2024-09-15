@@ -65,7 +65,7 @@ def bike_input_check_secret_entered():
     text = "Welcome to Karuizawa Rentals, please check the rental rate per hour by entering the bike number (01 - 203): "
     color = "\33[0;35m"
     while not accepted:
-        bike_num_str = input(console_text(text, "\33[0;35m"))  # ask for input
+        bike_num_str = input(console_text(text, color))  # ask for input
         if sha256(bike_num_str.encode('utf-8')).hexdigest() == '2f691c60c6f1b2527a9d93d83da8f7cdf8cb538cca48f2741b641866abf14241': #the string is the sha265 hashed version of the passcode (for security reasons)
             secret_access = True
             break
@@ -79,13 +79,14 @@ def bike_input_check_secret_entered():
 
         if bike_num < lowest_bike_num or bike_num > highest_bike_num: #check if number is valid
             text = "Only whole numbers between 1 and 203, please try again: "
+            color = "\33[0;33m"
             continue #go back to asking for input
         else:
             accepted = True #end the loop
     return secret_access
 def bike_output():
     # print the bike rental rate
-    print(console_text(f'You can rent bike {bike_num:02} for ¥{bike_price[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
+    print(console_text(f'\n You can rent bike {bike_num:02} for ¥{bike_price[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
     print("-------------") #for clarity #print the bike rental rate
 def load_bike_data():
     global bike_price
