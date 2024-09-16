@@ -6,7 +6,7 @@
 ## Code
 ```.py
 num = int(input("Input your number"))
-factor = [] 
+factor = []
 
 #find list of factors
 for i in range(1, num):
@@ -14,21 +14,25 @@ for i in range(1, num):
         factor.append(i)
 
 #find the sum of factors
+output_string = ''
 factorSum = 0
 for fac in factor:
     factorSum += fac
+    output_string += f"{str(fac)}, "
 
 #if sum of factor = num => num is a perfect number
-if factorSum == num:
-    print(f"{', '.join(map(str, factor))}, True") #map(function, iterable thing), apply a function to all objects in an iterable thing
+if factorSum == num: #add whether the number is perfect or not
+    output_string += "True"
 else:
-    print(f"{', '.join(map(str, factor))}, False")
+    output_string += "False"
+
+print(output_string)
 ```
 
 ## Proof of Work
-<img src = "https://github.com/user-attachments/assets/0b4ba940-b29e-4176-810c-d0253e307e1a" width = "450">
-<img src = "https://github.com/user-attachments/assets/b07f9741-89b5-4713-9192-6a2382c0f7fc" width = "450">
+<img src = "https://github.com/user-attachments/assets/37b6d794-784c-43ab-b748-f00dd4a77225" width = "450">
+<img src = "https://github.com/user-attachments/assets/5236393d-14c1-40e6-8105-cfb3f032cd4e" width = "450">
 
 ## Flow Chart
-![image](https://github.com/user-attachments/assets/35970006-ca62-48a7-a939-d521788d0899)
+![image](https://github.com/user-attachments/assets/5f45d9c3-6fa4-4b50-a722-3d5f3ca4af3a)
 
