@@ -462,7 +462,7 @@ while True:
             else:  # current_passcode, new_passcode]
                 a = update_passcode_manager_access_code(passcode_dictionary)
                 for key in passcode_dictionary.keys():
-                    new_passcode_raw_data.append(f'{key}, {decrypt(passcode_dictionary[key], int(generate_key_from_string(b)))}\n')
+                    new_passcode_raw_data.append(f'{key}, {encrypt(decrypt(passcode_dictionary[key], int(generate_key_from_string(b))), int(generate_key_from_string(a)))}\n')
                     passcode_dictionary[key] = encrypt(decrypt(passcode_dictionary[key], int(generate_key_from_string(b))),int(generate_key_from_string(a)))
             passcode_raw_data = new_passcode_raw_data
 
