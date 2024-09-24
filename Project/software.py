@@ -161,8 +161,6 @@ def bike_input_check_secret_entered(bike_price_data, available_bike_data, passco
     color = "\33[0;35m"
     while not accepted:
         bike_num_str = input(console_text(text, color))  # ask for input
-        print(sha256(bike_num_str.encode('utf-8')).hexdigest())
-        print(passcode_hashed)
         if sha256(bike_num_str.encode('utf-8')).hexdigest() == passcode_hashed: #the string is the sha265 hashed version of the passcode_dictionary(for security reasons)
             return True
         elif bike_num_str in 'xX':
@@ -172,9 +170,9 @@ def bike_input_check_secret_entered(bike_price_data, available_bike_data, passco
                     string_available_bike_data += f"{bike},\n"
                 else:
                     string_available_bike_data += f"{bike}, "
-            print("The available bikes are: ")
-            print(string_available_bike_data)
-            print("Above are the available bikes.") #make long list less confusing for smaller displays
+            print(console_text("The available bikes are: ", "\33[0;32m"))
+            print(console_text(string_available_bike_data, "\33[0;36m"))
+            print(console_text("Above are the available bikes.", "\33[0;32m")) #make long list more visible for smaller displays
             print('-----------------------')
             break
         elif not valid(bike_num_str, '0123456789'): #check if input is number
@@ -220,7 +218,7 @@ def load_bike_availability_data(bike_data_raw):
         available_bike_data.append(data_separated[0]) #add the bike number to the availability list
     return available_bike_data
 
-#function for passcode_dictionarymanager
+#function for passcode manager
 def secret_menu():
     for i in range(200): #as window
         print("\n")
@@ -250,85 +248,53 @@ def secret_menu():
 2. Update Passcodes
 3. Create New Passcode
 4. Delete Passcodes
-5. Update passcode_dictionaryManager Access Code
-6. Exit The passcode_dictionaryManager
+5. Update Passcode Manager Access Code
+6. Exit The Passcode Manager
     ''')
-def option_select_and_do():
-    global normal_mode
-    option = input_num_in_range(console_text("Enter your Option Here (1 - 6): ","\33[0;36m"), console_text("Please only enter numbers from 1 to 6, try again: ","\33[0;33m"), 1, 6)
-    if option == 1:
-        view_passcode(passcode_dictionary, passcode_availability_data)
-    elif option == 2:
-        update_bike_data = update_passcode(passcode_availability_data, passcode_raw_data)
-        passcode_dictionary[update_bike_data[0]] = update_bike_data[1]
-        passcode_availability_data.append(update_bike_data[0])
-    elif option == 3:
-        new_bike_data = create_passcode(passcode_availability_data, passcode_raw_data)
-        passcode_dictionary[new_bike_data[0]] = new_bike_data[1]
-        passcode_availability_data.append(new_bike_data[0])
-        passcode_raw_data.append(f'{new_bike_data[0]}, {new_bike_data[1]}\n')
-    elif option == 4:
-        deleted_bike_data = delete_passcode(passcode_availability_data, passcode_raw_data)
-        passcode_availability_data.remove(f'{deleted_bike_data:02}')
-    elif option == 5:
-        if not update_passcode_manager_access_code(passcode_hashed):
-            normal_mode = True
-    elif option == 6:
-        normal_mode = True
 
-#generate key from string
-def view_passcode(passcode_dictionary, passcode_availability_data):
-    bike_num = input(f"Enter bike number you would like to view the password for: ")
-    while not valid(bike_num, '0123456789'):
-        bike_num = input(f"Please only input valid bikes")
-    while f'{int(bike_num):02}' not in passcode_availability_data:
-        bike_num = input(f"Please only input valid bikes")
-    bike_code= passcode_dictionary[f'{int(bike_num):02}']
-    print(passcode_dictionary[f'{int(bike_num):02}'])
-    print(f'{int(bike_num):02}')
+def enter_key_and_confirm():
     confirmed = False
     while not confirmed:
-        access_code = input("Please enter the key to decrypt the passcode: ")
+        access_code = input(console_text("Please enter the key to decrypt the passcode: ", '\33[0;35m'))
         while not valid(access_code, "1234567890-=~!@#$%^&*()_+qwertyuiop[]\\asdfghjkl;'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>? "):
             access_code = input("Key must only contain characters on a standard English keyboard, please enter the key again: ")
 
-        confirmed_input = input("Are you sure this is the right key? Entering the wrong key will return the wrong password. Press Y to confirm, press X to enter the key again: ")
+        confirmed_input = input(console_text("Are you sure this is the right key? Entering the wrong key will return the wrong password. Press Y to confirm, press X to enter the key again: ", '\33[0;32m'))
         while not valid(confirmed_input, 'xXyY'):
-            confirmed_input = input("Please enter X or Y")
+            confirmed_input = input(console_text("Please enter X or Y", '\33[0;33m'))
         if confirmed_input in 'yY':
             confirmed = True
         else: #equivalent to if confirmed_input = 'xX'
             continue
-    key = generate_key_from_string(access_code)
+    return access_code
+
+#generate key from string
+def view_passcode(passcode_dictionary, passcode_availability_data):
+    bike_num = input(console_text("Enter bike number you would like to view the password for: ", '\33[0;32m'))
+    while not valid(bike_num, '0123456789'):
+        bike_num = input(console_text(f"Please only input valid bikes", '\33[0;33m'))
+    while f'{int(bike_num):02}' not in passcode_availability_data:
+        bike_num = input(console_text(f"Please only input valid bikes", '\33[0;33m'))
+    bike_code= passcode_dictionary[f'{int(bike_num):02}']
+
+    key = generate_key_from_string(enter_key_and_confirm())
     bike_code_final = decrypt(int(bike_code), int(key))
-    print(console_text(f'the bike passcode is {bike_code_final:04d}', "\033[0;32m"))
+    print(console_text(f'\n Bike {int(bike_num):02d}\'s passcode is {bike_code_final:04d}', "\033[0;32m"))
     print('-------------------------')
     access_code = '' #reset access code
 
 def update_passcode(passcode_availability_data, passcode_raw_data):
-    string_number = input("Please enter which bike's passcode you want to update: ")
+    string_number = input(console_text("Please enter which bike's passcode you want to update: ", '\33[0;32m'))
     while not valid(string_number, '0123456789') or f'{string_number:02}' not in passcode_availability_data:
-        string_number = input("Bike number does not exists, please enter a valid bike number: ")
+        string_number = input(console_text("Bike number does not exists, please enter a valid bike number: ", '\33[0;33m'))
     number = int(string_number)
 
-    string_passcode = input(f"Please enter the passcode you want to create for bike {number:02}")
+    string_passcode = input(console_text(f"Please enter the passcode you want to create for bike {number:02}", '\33[0;35m'))
     while not valid(string_passcode, '0123456789') or len(string_passcode) > 4 or len(string_passcode) < 4:
         string_passcode = input(f"Please enter a 4 digit number only, try again: ")
 
-    confirmed = False
-    while not confirmed:
-        access_code = input("Please enter the key to encrypt the passcode (same as the passcode to access the password manager): ")
-        while not valid(access_code,"1234567890-=~!@#$%^&*()_+qwertyuiop[]\\asdfghjkl;'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>? "):
-            access_code = input("Key must only contain characters on a standard English keyboard, please enter the key again: ")
 
-        confirmed_input = input("Are you sure this is the right key? Entering the wrong key will return the wrong password. Press Y to confirm, press X to enter the key again: ")
-        while not valid(confirmed_input, 'xXyY'):
-            confirmed_input = input("Please enter X or Y")
-        if confirmed_input in 'yY':
-            confirmed = True
-        else:  # equivalent to if confirmed_input = 'xX'
-            continue
-    key = generate_key_from_string(access_code)
+    key = generate_key_from_string(enter_key_and_confirm())
 
     string_passcode_encrypted = encrypt(int(string_passcode), int(key))
 
@@ -339,51 +305,39 @@ def update_passcode(passcode_availability_data, passcode_raw_data):
             new_data.append(line)
         else:
             new_data.append(f'{number:02}, {string_passcode_encrypted}\n')
-            print(f'{number:02}')
 
     with open('watermelon_juice.csv', mode='w') as file:
         file.writelines(new_data)
-    print('Passcode Updated')
+    print(console_text('Passcode Updated', '\33[0;33m'))
     print('-------------------------')
 
     return f'{number:02}', string_passcode_encrypted
 
 def create_passcode(passcode_availability_data, passcode_raw_data):
-    string_number = input("Please enter which bike's passcode you want to create: ")
+    string_number = input(console_text("Please enter which bike's passcode you want to create: ", "\33[0;32m"))
     while not valid(string_number, '0123456789') or f'{string_number:02}' in passcode_availability_data:
-        string_number = input("Please input a bike number, a number, not a string, that does not exist: ")
+        string_number = input(console_text("Please input a bike number, a number, not a string, that does not exist: ", '\33[0;33m'))
     number = int(string_number)
 
-    string_passcode = input(f"Please enter the passcode you want to create for bike {number}")
+    string_passcode = input(console_text(f"Please enter the passcode you want to create for bike {number}", "\33[0;32m"))
     while not valid(string_passcode, '0123456789') or len(string_passcode) > 4 or len(string_passcode) < 4:
-        string_passcode = input(f"Please enter a 4 digit number only, try again: ")
-    confirmed = False
-    while not confirmed:
-        access_code = input("Please enter the key to encrypt the passcode (same as the passcode to access the password manager): ")
-        while not valid(access_code,"1234567890-=~!@#$%^&*()_+qwertyuiop[]\\asdfghjkl;'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>? "):
-            access_code = input("Key must only contain characters on a standard English keyboard, please enter the key again: ")
+        string_passcode = input(console_text(f"Please enter a 4 digit number only, try again: ", '\33[0;33m'))
 
-        confirmed_input = input("Are you sure this is the right key? Entering the wrong key will return the wrong password. Press Y to confirm, press X to enter the key again: ")
-        while not valid(confirmed_input, 'xXyY'):
-            confirmed_input = input("Please enter X or Y")
-        if confirmed_input in 'yY':
-            confirmed = True
-        else:  # equivalent to if confirmed_input = 'xX'
-            continue
-    key = generate_key_from_string(access_code)
+    key = generate_key_from_string(enter_key_and_confirm())
 
     string_passcode_encrypted = encrypt(int(string_passcode), int(key))
 
     with open('watermelon_juice.csv', mode='w') as file:
         file.writelines(passcode_raw_data)
-    print('Passcode Added')
+    print(console_text('Passcode Added', '\33[0;33m'))
     print('-------------------------')
 
     return f'{number:02}', string_passcode_encrypted
+
 def delete_passcode(passcode_availability_data, passcode_raw_data):
-    string_number = input("Please enter which bike's passcode you want to delete: ")
+    string_number = input(console_text("Please enter which bike's passcode you want to delete: ", '\33[0;32m'))
     while not valid(string_number, '0123456789') or f'{string_number:02}' not in passcode_availability_data:
-        string_number = input("Bike number does not exists, please enter a valid bike number: ")
+        string_number = input(console_text("Bike number does not exists, please enter a valid bike number: ", '\33[0;33m'))
     number = int(string_number)
     new_data = []
     for line_no, line in enumerate(passcode_raw_data):
@@ -392,39 +346,41 @@ def delete_passcode(passcode_availability_data, passcode_raw_data):
 
     with open('watermelon_juice.csv', mode='w') as file:
         file.writelines(new_data)
-    print('Passcode Deleted')
+    print(console_text('Passcode Deleted', '\33[0;33m'))
     print('-------------------------')
 
     return f'{string_number:02}'
 
-def update_passcode_manager_access_code(passcode_hashed):
-    current_passcode = input("Please enter your current access code: ")
+def input_and_check_current_passcode(passcode_hashed):
+    current_passcode = input(console_text("Please enter your current access code: ", '\33[0;32m'))
     error_count = 3
 
     while sha256(current_passcode.encode('utf-8')).hexdigest() != passcode_hashed and error_count != 0: #check if the user knows the current passcode
-        current_passcode = input(f"Wrong password entered, please try again, {error_count} more tries before exiting passcode manager")
+        current_passcode = input(console_text(f"Wrong password entered, please try again, {error_count} more tries before exiting passcode manager", "\33[0;31m"))
+        print('error-1')
         error_count -= 1
-        if error_count == 0:
-            return True #normal mode is true
 
-    if not normal_mode:
-        new_passcode_dictionary= input("Please enter your new access code: ")
-        confirmed_new_passcode = input("Please confirmed your passcode: ")
-        while new_passcode_dictionary!= confirmed_new_passcode:
-            print("Passcodes did not match, please try again.")
-            print(" ")
-            new_passcode = input("Please enter your new access code: ")
-            confirmed_new_passcode = input("Please confirmed your passcode: ")
-        for key in passcode_dictionary.keys():
-            passcode_dictionary[key] = encrypt(decrypt(passcode_dictionary[key], int(generate_key_from_string(current_passcode))), int(generate_key_from_string(new_passcode)))
+    return True if error_count == 0 else current_passcode
 
-        passcode_hashed = sha256(new_passcode.encode('utf-8')).hexdigest()
+def update_passcode_manager_access_code(passcode_dictionary):
+    new_passcode = ''
+    new_passcode = input(console_text("Please enter your new access code: ", '\33[0;32m'))
+    confirmed_new_passcode = input(console_text("Please confirmed your passcode: ", '\33[0;33m'))
+    while new_passcode != confirmed_new_passcode:
+        print(console_text("Passcodes did not match, please try again.", '\33[0;31m'))
+        print(" ")
+        new_passcode = input(console_text("Please enter your new access code: ", '\33[0;32m'))
+        confirmed_new_passcode = input(console_text("Please confirmed your passcode: ", '\33[0;33m'))
 
-        with open('access_code.txt', mode='w') as file:
-            file.writelines(passcode_hashed)
+    passcode_hashed = sha256(new_passcode.encode('utf-8')).hexdigest()
 
-        print("Access code changed successfully")
-        print("-------------------------------------")
+    with open('access_code.txt', mode='w') as file:
+        file.writelines(passcode_hashed)
+
+    print(console_text("Access code changed successfully", "\33[0;32m"))
+    print("-------------------------------------")
+
+    return new_passcode
 
 def load_passcode_raw_data():
     with open('watermelon_juice.csv', mode ='r') as f:
@@ -477,9 +433,40 @@ while True:
 
     if not normal_mode:
         secret_menu()
-        if not passcode_loaded: #only extract data to memory if in passcode_dictionarymanager to save resources
+        if not passcode_loaded: #only extract data to memory if in passcode manager to save resources
             passcode_raw_data = load_passcode_raw_data()
-            passcode_dictionary= load_passcode_dictionary(passcode_raw_data)
+            passcode_dictionary = load_passcode_dictionary(passcode_raw_data)
             passcode_availability_data = load_passcode_availability_data(passcode_raw_data)
     while not normal_mode:
-        option_select_and_do() #function that receives the mode as input and executes the function to perform that mode
+        option = input_num_in_range(console_text("Enter your Option Here (1 - 6): ", "\33[0;36m"),console_text("Please only enter numbers from 1 to 6, try again: ", "\33[0;33m"), 1,6)
+        if option == 1:
+            view_passcode(passcode_dictionary, passcode_availability_data)
+        elif option == 2:
+            update_bike_data = update_passcode(passcode_availability_data, passcode_raw_data)
+            passcode_dictionary[update_bike_data[0]] = update_bike_data[1]
+            passcode_availability_data.append(update_bike_data[0])
+        elif option == 3:
+            new_bike_data = create_passcode(passcode_availability_data, passcode_raw_data)
+            passcode_dictionary[new_bike_data[0]] = new_bike_data[1]
+            passcode_availability_data.append(new_bike_data[0])
+            passcode_raw_data.append(f'{new_bike_data[0]}, {new_bike_data[1]}\n')
+        elif option == 4:
+            deleted_bike_data = delete_passcode(passcode_availability_data, passcode_raw_data)
+            passcode_availability_data.remove(f'{deleted_bike_data:02}')
+        elif option == 5:
+            new_passcode_raw_data = []
+            b = input_and_check_current_passcode(passcode_hashed)
+            if b == True:
+                normal_mode = True
+                print("normal mode activated")
+            else:  # current_passcode, new_passcode]
+                a = update_passcode_manager_access_code(passcode_dictionary)
+                for key in passcode_dictionary.keys():
+                    new_passcode_raw_data.append(f'{key}, {decrypt(passcode_dictionary[key], int(generate_key_from_string(b)))}\n')
+                    passcode_dictionary[key] = encrypt(decrypt(passcode_dictionary[key], int(generate_key_from_string(b))),int(generate_key_from_string(a)))
+            passcode_raw_data = new_passcode_raw_data
+
+            with open('watermelon_juice.csv', mode='w') as file:
+                file.writelines(passcode_raw_data)
+        elif option == 6:
+            normal_mode = True#function that receives the mode as input and executes the function to perform that mode
