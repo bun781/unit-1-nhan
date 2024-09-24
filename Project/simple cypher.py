@@ -1,3 +1,4 @@
+#in case something goes wrong with the encrypted database
 def base_10_to_2_15_bits(base_10_number:int):
     base_2_number_string = ''
     if base_10_number == 0:
@@ -73,4 +74,36 @@ def decrypt(encrypted:int, key:int):
             else:
                 original += '1'
     print(int(original, 2))
-decrypt(26328, 6195)
+def generate_key_from_string(input_string:str):
+    value_string = "1234567890-=~!@#$%^&*()_+qwertyuiop[]\\asdfghjkl;'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>? "
+    letter_product = 1
+    for letter in input_string:
+        letter_product *= (value_string.index(letter) + 1) #+1 to make sure no number is 0
+    string_letter_product = str(letter_product)
+
+    key_string = ''
+    if len(string_letter_product) < 4:
+        while len(string_letter_product) < 4:
+            string_letter_product += "0"
+        key_string += string_letter_product
+    elif len(string_letter_product) > 4:
+        key_string += string_letter_product[0:4] #get the first 4 values
+    else: #when len(string_letter_product) = 4
+        key_string += string_letter_product
+
+    return key_string
+with open('watermelon_juice.csv', mode ='r') as f:
+    passcode_data = f.readlines()
+new_data = []
+for item in passcode_data: #repeat for every line in the csv
+    data_cleaned = item.strip() #get rid of \n
+    data_separated = data_cleaned.split(',')
+
+    #unpacking
+    name = data_separated[0]
+    passcoded = data_separated[1]
+    a = generate_key_from_string(#insert current key)
+    new_data.append(f'{name}, {encrypt(int(passcoded), int(a))}\n')
+
+with open('watermelon_juice.csv', mode='w') as file:
+    file.writelines(new_data)
