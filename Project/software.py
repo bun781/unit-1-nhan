@@ -155,27 +155,25 @@ def load_passcode_hashed():
         passcode_hashed = file.readlines()[0]
     return passcode_hashed
 
-def bike_input_check_secret_entered(bike_price, available_bike, passcode_hashed):
+def bike_input_check_secret_entered(bike_price_data, available_bike_data, passcode_hashed):
     accepted = False
-    secret_access = False
-
     text = f"Welcome to Karuizawa Rentals, please check the rental rate per hour by entering a valid bike number. To check for available bikes, enter X: "
     color = "\33[0;35m"
     while not accepted:
         bike_num_str = input(console_text(text, color))  # ask for input
         print(sha256(bike_num_str.encode('utf-8')).hexdigest())
         print(passcode_hashed)
-        if sha256(bike_num_str.encode('utf-8')).hexdigest() == passcode_hashed: #the string is the sha265 hashed version of the passcode (for security reasons)
+        if sha256(bike_num_str.encode('utf-8')).hexdigest() == passcode_hashed: #the string is the sha265 hashed version of the passcode_dictionary(for security reasons)
             return True
         elif bike_num_str in 'xX':
-            string_available_bike = ''
-            for num, bike in enumerate(available_bike):
+            string_available_bike_data = ''
+            for num, bike in enumerate(available_bike_data):
                 if num % 20 == 19: #make 20 columns
-                    string_available_bike += f"{bike},\n"
+                    string_available_bike_data += f"{bike},\n"
                 else:
-                    string_available_bike += f"{bike}, "
+                    string_available_bike_data += f"{bike}, "
             print("The available bikes are: ")
-            print(string_available_bike)
+            print(string_available_bike_data)
             print("Above are the available bikes.") #make long list less confusing for smaller displays
             print('-----------------------')
             break
@@ -184,7 +182,7 @@ def bike_input_check_secret_entered(bike_price, available_bike, passcode_hashed)
             color = "\33[0;33m"
             continue  #go back to asking for input
 
-        if f'{bike_num_str:02}' not in available_bike: #check if number is valid
+        if f'{bike_num_str:02}' not in available_bike_data: #check if number is valid
             text = f"Please enter a valid bike number"
             color = "\33[0;33m"
             continue #go back to asking for input
@@ -192,7 +190,7 @@ def bike_input_check_secret_entered(bike_price, available_bike, passcode_hashed)
             bike_num = int(bike_num_str)
             accepted = True #end the loop
     if accepted:
-        print(console_text(f'\nYou can rent bike {bike_num:02} for ¥{bike_price[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
+        print(console_text(f'\nYou can rent bike {bike_num:02} for ¥{bike_price_data[f"{bike_num:02}"]}/hour',"\33[0;32m"))  # bike_price_data[f"{bike_num:02} returns the price from the dictionary. Not made a variable to save memory.
         print("-------------")  # for clarity #print the bike rental rate
 
 
@@ -200,8 +198,8 @@ def load_bike_raw_data():
     with open('bike_data.csv', mode ='r') as f:
         bike_data_raw = f.readlines()
     return bike_data_raw
-def load_bike_price_data(bike_data_raw):
-    bike_price = {}
+def load_bike_price_data_data(bike_data_raw):
+    bike_price_data = {}
     for item in bike_data_raw: #repeat for every line in the csv
         data_cleaned = item.strip() #get rid of \n
         data_separated = data_cleaned.split(',')
@@ -211,18 +209,18 @@ def load_bike_price_data(bike_data_raw):
         price = data_separated[1]
 
         #add to bike_data (a dictionary)
-        bike_price[name] = int(price)
-    return bike_price
+        bike_price_data[name] = int(price)
+    return bike_price_data
 
 def load_bike_availability_data(bike_data_raw):
-    available_bike = []
+    available_bike_data = []
     for item in bike_data_raw: #repeat for every line in the csv
         data_cleaned = item.strip() #get rid of \n
         data_separated = data_cleaned.split(',') #split the data into separate bike number and price
-        available_bike.append(data_separated[0]) #add the bike number to the availability list
-    return available_bike
+        available_bike_data.append(data_separated[0]) #add the bike number to the availability list
+    return available_bike_data
 
-#function for passcode manager
+#function for passcode_dictionarymanager
 def secret_menu():
     for i in range(200): #as window
         print("\n")
@@ -252,20 +250,26 @@ def secret_menu():
 2. Update Passcodes
 3. Create New Passcode
 4. Delete Passcodes
-5. Update Passcode Manager Access Code
-6. Exit The Passcode Manager
+5. Update passcode_dictionaryManager Access Code
+6. Exit The passcode_dictionaryManager
     ''')
 def option_select_and_do():
     global normal_mode
     option = input_num_in_range(console_text("Enter your Option Here (1 - 6): ","\33[0;36m"), console_text("Please only enter numbers from 1 to 6, try again: ","\33[0;33m"), 1, 6)
     if option == 1:
-        view_passcode(passcode, available_passcode)
+        view_passcode(passcode_dictionary, passcode_availability_data)
     elif option == 2:
-        update_passcode(available_passcode, passcode_data)
+        update_bike_data = update_passcode(passcode_availability_data, passcode_raw_data)
+        passcode_dictionary[update_bike_data[0]] = update_bike_data[1]
+        passcode_availability_data.append(update_bike_data[0])
     elif option == 3:
-        create_passcode(available_passcode, passcode_data)
+        new_bike_data = create_passcode(passcode_availability_data, passcode_raw_data)
+        passcode_dictionary[new_bike_data[0]] = new_bike_data[1]
+        passcode_availability_data.append(new_bike_data[0])
+        passcode_raw_data.append(f'{new_bike_data[0]}, {new_bike_data[1]}\n')
     elif option == 4:
-        delete_passcode(available_passcode, passcode_data)
+        deleted_bike_data = delete_passcode(passcode_availability_data, passcode_raw_data)
+        passcode_availability_data.remove(f'{deleted_bike_data:02}')
     elif option == 5:
         if not update_passcode_manager_access_code(passcode_hashed):
             normal_mode = True
@@ -273,12 +277,14 @@ def option_select_and_do():
         normal_mode = True
 
 #generate key from string
-def view_passcode(passcode, available_passcode):
-    bike_num = input(f"Enter bike number would you like to view the password for: ")
-    while f'{int(bike_num):02}' not in available_passcode:
+def view_passcode(passcode_dictionary, passcode_availability_data):
+    bike_num = input(f"Enter bike number you would like to view the password for: ")
+    while not valid(bike_num, '0123456789'):
         bike_num = input(f"Please only input valid bikes")
-    bike_code= passcode[f'{int(bike_num):02}']
-    print(passcode[f'{int(bike_num):02}'])
+    while f'{int(bike_num):02}' not in passcode_availability_data:
+        bike_num = input(f"Please only input valid bikes")
+    bike_code= passcode_dictionary[f'{int(bike_num):02}']
+    print(passcode_dictionary[f'{int(bike_num):02}'])
     print(f'{int(bike_num):02}')
     confirmed = False
     while not confirmed:
@@ -295,13 +301,13 @@ def view_passcode(passcode, available_passcode):
             continue
     key = generate_key_from_string(access_code)
     bike_code_final = decrypt(int(bike_code), int(key))
-    print(console_text(f'the bike passcode is {bike_code_final}', "\033[0;32m"))
+    print(console_text(f'the bike passcode is {bike_code_final:04d}', "\033[0;32m"))
     print('-------------------------')
     access_code = '' #reset access code
 
-def update_passcode(available_passcode, passcode_data):
+def update_passcode(passcode_availability_data, passcode_raw_data):
     string_number = input("Please enter which bike's passcode you want to update: ")
-    while not valid(string_number, '0123456789') or f'{string_number:02}' not in available_passcode:
+    while not valid(string_number, '0123456789') or f'{string_number:02}' not in passcode_availability_data:
         string_number = input("Bike number does not exists, please enter a valid bike number: ")
     number = int(string_number)
 
@@ -328,22 +334,23 @@ def update_passcode(available_passcode, passcode_data):
 
     new_data = []
 
-    for line in passcode_data:
+    for line in passcode_raw_data:
         if number != int(line.split(',')[0]):  # append if it is not the number
             new_data.append(line)
         else:
             new_data.append(f'{number:02}, {string_passcode_encrypted}\n')
             print(f'{number:02}')
-    passcode[f'{number:02}'] = string_passcode_encrypted
 
     with open('watermelon_juice.csv', mode='w') as file:
         file.writelines(new_data)
     print('Passcode Updated')
     print('-------------------------')
 
-def create_passcode(available_passcode, passcode_data):
+    return f'{number:02}', string_passcode_encrypted
+
+def create_passcode(passcode_availability_data, passcode_raw_data):
     string_number = input("Please enter which bike's passcode you want to create: ")
-    while not valid(string_number, '0123456789') or f'{string_number:02}' in available_passcode:
+    while not valid(string_number, '0123456789') or f'{string_number:02}' in passcode_availability_data:
         string_number = input("Please input a bike number, a number, not a string, that does not exist: ")
     number = int(string_number)
 
@@ -366,32 +373,29 @@ def create_passcode(available_passcode, passcode_data):
     key = generate_key_from_string(access_code)
 
     string_passcode_encrypted = encrypt(int(string_passcode), int(key))
-    passcode_data.append(f'{number:02}, {string_passcode_encrypted}\n')
-
-    available_passcode.append(f'{string_number:02}')
-
 
     with open('watermelon_juice.csv', mode='w') as file:
-        file.writelines(passcode_data)
+        file.writelines(passcode_raw_data)
     print('Passcode Added')
     print('-------------------------')
 
-def delete_passcode(available_passcode, passcode_data):
+    return f'{number:02}', string_passcode_encrypted
+def delete_passcode(passcode_availability_data, passcode_raw_data):
     string_number = input("Please enter which bike's passcode you want to delete: ")
-    while not valid(string_number, '0123456789') or f'{string_number:02}' not in available_passcode:
+    while not valid(string_number, '0123456789') or f'{string_number:02}' not in passcode_availability_data:
         string_number = input("Bike number does not exists, please enter a valid bike number: ")
     number = int(string_number)
     new_data = []
-    for line_no, line in enumerate(passcode_data):
+    for line_no, line in enumerate(passcode_raw_data):
         if number != int(line_no + 1):  # append if it is not the number
             new_data.append(line)
-
-    available_passcode.remove(f'{string_number:02}')
 
     with open('watermelon_juice.csv', mode='w') as file:
         file.writelines(new_data)
     print('Passcode Deleted')
     print('-------------------------')
+
+    return f'{string_number:02}'
 
 def update_passcode_manager_access_code(passcode_hashed):
     current_passcode = input("Please enter your current access code: ")
@@ -404,15 +408,15 @@ def update_passcode_manager_access_code(passcode_hashed):
             return True #normal mode is true
 
     if not normal_mode:
-        new_passcode = input("Please enter your new access code: ")
+        new_passcode_dictionary= input("Please enter your new access code: ")
         confirmed_new_passcode = input("Please confirmed your passcode: ")
-        while new_passcode != confirmed_new_passcode:
+        while new_passcode_dictionary!= confirmed_new_passcode:
             print("Passcodes did not match, please try again.")
             print(" ")
             new_passcode = input("Please enter your new access code: ")
             confirmed_new_passcode = input("Please confirmed your passcode: ")
-        for key in passcode.keys():
-            passcode[key] = encrypt(decrypt(passcode[key], int(generate_key_from_string(current_passcode))), int(generate_key_from_string(new_passcode)))
+        for key in passcode_dictionary.keys():
+            passcode_dictionary[key] = encrypt(decrypt(passcode_dictionary[key], int(generate_key_from_string(current_passcode))), int(generate_key_from_string(new_passcode)))
 
         passcode_hashed = sha256(new_passcode.encode('utf-8')).hexdigest()
 
@@ -424,12 +428,12 @@ def update_passcode_manager_access_code(passcode_hashed):
 
 def load_passcode_raw_data():
     with open('watermelon_juice.csv', mode ='r') as f:
-        passcode_data = f.readlines()
-    return passcode_data
+        passcode_raw_data = f.readlines()
+    return passcode_raw_data
 
-def load_passcode_dictionary(passcode_data):
-    passcode = {}
-    for item in passcode_data: #repeat for every line in the csv
+def load_passcode_dictionary(passcode_raw_data):
+    passcode_dictionary= {}
+    for item in passcode_raw_data: #repeat for every line in the csv
         data_cleaned = item.strip() #get rid of \n
         data_separated = data_cleaned.split(',')
 
@@ -437,17 +441,17 @@ def load_passcode_dictionary(passcode_data):
         name = data_separated[0]
         passcoded = data_separated[1]
 
-        #add to passcode (a dictionary)
-        passcode[name] = passcoded
-    return passcode
+        #add to passcode_dictionary(a dictionary)
+        passcode_dictionary[name] = passcoded
+    return passcode_dictionary
 
-def load_passcode_availability_data(passcode_data):
-    available_passcode = []
-    for item in passcode_data: #repeat for every line in the csv
+def load_passcode_availability_data(passcode_raw_data):
+    passcode_availability_data = []
+    for item in passcode_raw_data: #repeat for every line in the csv
         data_cleaned = item.strip() #get rid of \n
         data_separated = data_cleaned.split(',')
-        available_passcode.append(data_separated[0])
-    return available_passcode
+        passcode_availability_data.append(data_separated[0])
+    return passcode_availability_data
 
 
 
@@ -457,8 +461,8 @@ def load_passcode_availability_data(passcode_data):
 
 normal_mode = True #keep track which mode software is running in
 bike_data_raw = load_bike_raw_data()
-bike_price = load_bike_price_data(bike_data_raw)
-available_bike = load_bike_availability_data(bike_data_raw)
+bike_price_data = load_bike_price_data_data(bike_data_raw)
+available_bike_data = load_bike_availability_data(bike_data_raw)
 passcode_hashed = load_passcode_hashed()
 
 passcode_loaded = False
@@ -468,14 +472,14 @@ while True:
         if not menu_loaded:
             menu()
             menu_loaded = True
-        if bike_input_check_secret_entered(bike_price, available_bike, passcode_hashed): #ask what bike user wants to check. Turn off normal mode when secret code is entered
+        if bike_input_check_secret_entered(bike_price_data, available_bike_data, passcode_hashed): #ask what bike user wants to check. Turn off normal mode when secret code is entered
             normal_mode = False
 
     if not normal_mode:
         secret_menu()
-        if not passcode_loaded: #only extract data to memory if in passcode manager to save resources
-            passcode_data = load_passcode_raw_data()
-            passcode = load_passcode_dictionary(passcode_data)
-            available_passcode = load_passcode_availability_data(passcode_data)
+        if not passcode_loaded: #only extract data to memory if in passcode_dictionarymanager to save resources
+            passcode_raw_data = load_passcode_raw_data()
+            passcode_dictionary= load_passcode_dictionary(passcode_raw_data)
+            passcode_availability_data = load_passcode_availability_data(passcode_raw_data)
     while not normal_mode:
         option_select_and_do() #function that receives the mode as input and executes the function to perform that mode
