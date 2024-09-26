@@ -40,7 +40,7 @@ This system will be embedded and disguised as a simple software to search up the
 **Fig. B1** Flowchart gives an overview of the flow of the program. Anything related to the passcode only ran after access code entered.
 <br>
 <br>
-![Default Program](https://github.com/user-attachments/assets/5211317d-420b-4384-99f3-45af3a4613bf)
+![Default Program](https://github.com/user-attachments/assets/ee99ed83-6814-49ec-8454-ce9e62497c65)
 **Fig. B2** Code and Explanation flow chart for the "Default Program" mentioned in Figure 1
 <br>
 <br>
