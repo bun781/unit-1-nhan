@@ -10,25 +10,43 @@ To make the process easier for my client, I propose a hidden system that allows 
 This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a password manager that allows my client to perform CRUD operations on the passcodes. 
 
 ## Success Criteria
-1. The software checks and accepts the appropriate user inputs to perform the search operation.
-2. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
-3. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
-4. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
-5. In the password manager, the user would be able to perform:
-   * CRUD operations (Create, Read, Update, Delete) on bike passcode
-   * Change the secret code
-6. In password manager mode, the user should be able to perform CRUD operations (Create, Replace, Update, Delete):
-   * Add a password (for example, for a website).
-   * View the stored passwords (only if they re-enter the secret code).
-7. The passwords will be stored in a text file. They are also encrypted. 
+#Default Program:
+1. The software can receive an input for a bike number and displays that bike's rental rate
+2. The software can output the number of available bike rental price information
+3. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
+4. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
+5. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
 
+#Password Manager: 
+
+6. View bike's passcode:
+      * User can input the number of one or multiple bikes to check each bike's passcode
+      * The user must enter the access code (or words that are potential typos of the access code) to view the bike passcode
+7. Update a bike's passcode
+8. Create a new bike's passcode
+9. Delete a preexising bike's passcode
+10. Change the access code while also making the passcode data viewable with the new access code
+11. Return back to Default Program or Terminate the Program
+12. The bike passcodes and Passcode Manager access code will be stored in a text file. They are also encrypted.
 
 # Criterion B: Design
 ### System Diagram
+![System Diagram](https://github.com/user-attachments/assets/6a3c4598-6e75-4f09-9566-f68c507c992c)
+
+**Fig. 1** Image of System Diagram.
 
 ### Flow diagrams for algorithms
-![flow](https://github.com/user-attachments/assets/93f4a0fb-66b8-4993-9b3d-b0b47deaeb82)
-**Fig. 1** This is the flow diagram for the algorithm used to search in the data file...
+![Overall Program View](https://github.com/user-attachments/assets/ca30f7e0-4f8a-4b94-802b-d35966d70361)
+**Fig. B1** Flowchart gives an overview of the flow of the program. Anything related to the passcode only ran after access code entered.
+<br>
+<br>
+![Default Program](https://github.com/user-attachments/assets/5211317d-420b-4384-99f3-45af3a4613bf)
+**Fig. B2** Code and Explanation flow chart for the "Default Program" mentioned in Figure 1
+<br>
+<br>
+![Encryption Algorithm](https://github.com/user-attachments/assets/ff92ce91-e51a-4c71-b85d-566cf79640c4)
+**Fig. B3** Code and Explanation flow chart for the encryption algorithm. Decryption can be achieved by reverseing the encryption algorithm with the right key
+
 
 ### Data storage
 
