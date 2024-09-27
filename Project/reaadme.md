@@ -120,4 +120,5 @@ Due by September 20:
 |          23 | Upload all files and documentation onto GitHub                                                                          | Show that my project is finished                                                                             | 10 minutes     |                 Sep 27 | B         |
 
 # Show that the product works
-[Please click here for the video](https://youtu.be/nyCSnCaLIq8)
+[Please click here for the 3 minute demonstration video](https://youtu.be/nyCSnCaLIq8)
+[Please click here for the fully voice overed product walkthrough](https://youtu.be/M2uInO910Hs)
