@@ -21,9 +21,8 @@ Default Program:
 3. Clear console
 4. The software can output the number of available bike rental price information
 5. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
-6. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
-7. If the user enters the secret access code, the program will change modes and act as a password manager.
-
+6. If the user enters the secret access code, determined by the user, the program will change modes and acts as a password manager.
+   
 Password Manager: 
 
 6. View bike's passcode:
