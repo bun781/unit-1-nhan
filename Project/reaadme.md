@@ -33,7 +33,7 @@ Password Manager:
 9. Delete a preexising bike's passcode
 10. Change the access code while also making the passcode data viewable with the new access code
 11. Return back to Default Program or Terminate the Program
-12. The bike passcodes and Passcode Manager access code will be stored in a text file. They are also encrypted.
+12. The bike passcodes and Passcode Manager access code will be stored in a text file. They are also encrypted, and can be encrypted with a key and the typo of the key.
 
 # Criterion B: Design
 ### System Diagram
@@ -120,4 +120,4 @@ Due by September 20:
 |          23 | Upload all files and documentation onto GitHub                                                                          | Show that my project is finished                                                                             | 10 minutes     |                 Sep 27 | B         |
 
 # Show that the product works
-[Please click here for the video](https://www.youtube.com/watch?v=M2uInO910Hs)
+[Please click here for the video](https://youtu.be/nyCSnCaLIq8)
