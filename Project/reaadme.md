@@ -7,7 +7,9 @@ Lately, he has complained tthat he cannot remember all the passcodes anymore, as
 ## Proposed Solution
 To make the process easier for my client, I propose a hidden system that allows my client to manage the passcodes for his bikes.
 
-This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a password manager that allows my client to perform CRUD operations on the passcodes. 
+This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a passcode manager that allows my client to perform CRUD operations on the passcodes. Such systems ensure that any access to the passcode manager needs to be deliberate, as any other input aside from number usually returns an error.
+
+Furthermore, in compliance with the client's request, the passcode for the bikes would be encrypted. As my client is old, the method should have a certain degree of leeway for accuracy of the user input in order to not raise frustration for him. This feature is further justified by the fact that the user needs to already enter the correct Access Code to enter the program. Nevertheless, there should be an additional security feature to offset the slight security decrease, such as wrong keys returning plausible results (in order to combat brute force attacks).
 
 ## Success Criteria
 #Default Program:
@@ -18,7 +20,6 @@ This system will be embedded and disguised as a simple software to search up the
 5. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
 
 #Password Manager: 
-
 6. View bike's passcode:
       * User can input the number of one or multiple bikes to check each bike's passcode
       * The user must enter the access code (or words that are potential typos of the access code) to view the bike passcode
@@ -32,7 +33,6 @@ This system will be embedded and disguised as a simple software to search up the
 # Criterion B: Design
 ### System Diagram
 ![System Diagram](https://github.com/user-attachments/assets/6a3c4598-6e75-4f09-9566-f68c507c992c)
-
 **Fig. 1** Image of System Diagram.
 
 ### Flow diagrams for algorithms
