@@ -17,10 +17,12 @@ Additionally, it would also have a function to change the Access Code itself, as
 Default Program:
 
 1. The software can receive an input for a bike number and displays that bike's rental rate
-2. The software can output the number of available bike rental price information
-3. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
-4. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
-5. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
+2. Find available bike information
+3. Clear console
+4. The software can output the number of available bike rental price information
+5. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
+6. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
+7. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
 
 Password Manager: 
 
