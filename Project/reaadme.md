@@ -2,24 +2,28 @@
 ## Problem Definition
 My client is an old local bike rental shop owner in Karuizawa. As he puts his bikes in front of his store, he needs a way to lock them to prevent possible theft. To do so, he simply uses a bike lock for each bike. Additionally, to prevent every bike lock being compromised at the same time, he uses a different passcode for every single bike. 
 
-Lately, he has complained tthat he cannot remember all the passcodes anymore, as the number of bikes in his shops ranges into the hundreds, and he feels like he is getting old. He tried to write all the passcodes in a booklet, but soon become paranoid of employees seeing every passcode of every bike, which he believes to be the starting point for a bike heist. Then he tried to use a simple cypher on the passcodes and write them down, but it also posed a challenge for him: the cypher took too long to crack, sometimes he makes a mistake that makes him repeat the entire process again; all of these steps, he said, were too mentally taxing and streessful for him to repeat multiple times during the day.
+Lately, he has complained that he cannot remember all the passcodes anymore, as the number of bikes in his shops ranges into the hundreds, and he feels like he is getting old. He tried to write all the passcodes in a booklet, but soon become paranoid of employees seeing every passcode of every bike, which he believes to be the starting point for a bike heist. Then he tried to use a simple cypher on the passcodes and write them down, but it also posed a challenge for him: the cypher took too long to crack, sometimes he makes a mistake that makes him repeat the entire process again; all of these steps, he said, were too mentally taxing and streessful for him to repeat multiple times during the day.
 
 ## Proposed Solution
 To make the process easier for my client, I propose a hidden system that allows my client to manage the passcodes for his bikes.
 
-This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs a secret code, the program will change mode and act as a passcode manager that allows my client to perform CRUD operations on the passcodes. Such systems ensure that any access to the passcode manager needs to be deliberate, as any other input aside from number usually returns an error.
+This system will be embedded and disguised as a simple software to search up the rental price of a bicycle through inputting the bike’s number. However, when the user inputs the right Access Code, the program will change mode and act as a passcode manager that allows my client to perform CRUD (Create, Read, Update, and Delete) operations on the passcodes. Such systems ensure that any access to the passcode manager needs to be deliberate, as any other input aside from number usually returns an error.
 
-Furthermore, in compliance with the client's request, the passcode for the bikes would be encrypted. As my client is old, the method should have a certain degree of leeway for accuracy of the user input in order to not raise frustration for him. This feature is further justified by the fact that the user needs to already enter the correct Access Code to enter the program. Nevertheless, there should be an additional security feature to offset the slight security decrease, such as wrong keys returning plausible results (in order to combat brute force attacks).
+Furthermore, in compliance with the client's request, the passcode for the bikes would be encrypted. As my client is old, once inside the passcode manager, the method should allow the user to enter typo of the passcode and still be able to decrypt the bike's passcode. This feature is further justified by the fact that the user needs to already enter the correct Access Code to enter the program. Nevertheless, there should be an additional security feature to offset the slight security decrease, such as having wrong keys returning plausible but wrong results (to combat brute force attacks).
+
+Additionally, it would also have a function to change the Access Code itself, as there exists a possibility that my client accidentally compromises his passcode (e.g. due to him writing it). This would allow him to swiftly change the access to the Passcode Manager as well as the encryption of the bike passcode data, preventing further possible bike passcode compromise.
 
 ## Success Criteria
-#Default Program:
+Default Program:
+
 1. The software can receive an input for a bike number and displays that bike's rental rate
 2. The software can output the number of available bike rental price information
 3. The software can handle typical errors (e.g. entering a bike number that does not exist, entering a string instead of a number, entering floats instead of integers) and give appropriate feedback
 4. If the user enters the secret code, determined by the user, the program will change modes and acts as a password manager.
 5. If the user enters the secret code ("open123"), the program will change modes and act as a password manager.
 
-#Password Manager: 
+Password Manager: 
+
 6. View bike's passcode:
       * User can input the number of one or multiple bikes to check each bike's passcode
       * The user must enter the access code (or words that are potential typos of the access code) to view the bike passcode
@@ -61,7 +65,9 @@ The Passcode Manager access code is not stored, but rather its hash generated by
 
 ### Test plan
 All tests are in chronological order, tests that can be tested at the same time are listed as the same number.
+
 Due by September 17:
+
 1. Encryption Method. Test both encryption and decryption.
 2. Test key generation from input string (Test by inputting key into encryption and decryption algorithm)
 3. Testing applying the encryption to an entire database file with multiple keys
@@ -70,11 +76,16 @@ Due by September 17:
 6. Test Default Program Access Passcode function
 
 Due by September 20:
-5. Test passcode input function (Return inaccurate if user enter wrong access code
-5. Test function that views passcodes (handle invalid bike number, handle multiple bikes data)
-5. Test function that creates passcode (handle invalid bike number, database update after program exit, updating data in memory)
-5. Test function that deleted passcode (handle invalid bike number, database update after program exit, updating data in memory)
-5. Test function that updates passcode (handle invalid bike number, database update after program exit, updating data in memory)
+
+5, Test passcode input function (Return inaccurate if user enter wrong access code
+
+5, Test function that views passcodes (handle invalid bike number, handle multiple bikes data)
+
+5, Test function that creates passcode (handle invalid bike number, database update after program exit, updating data in memory)
+
+5, Test function that deleted passcode (handle invalid bike number, database update after program exit, updating data in memory)
+
+5, Test function that updates passcode (handle invalid bike number, database update after program exit, updating data in memory)
 
 6. Test updating passcode manager (Only proceed if entered the current Access Code, confirm new Access Code twice, Access Code change correctly reflected in bike passcode database, new Access Code can be use to access Passcode Manager, while the previous cannot., new Access Code's hash is correctly updated in text file.
 7. Test exit functions (Exit functions exit the according function/code)
