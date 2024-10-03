@@ -42,4 +42,5 @@ print(powersTen('1 gram of salt'))
 ![image](https://github.com/user-attachments/assets/016a36da-e56c-4d2d-91fd-3c705f59530e)
 
 ## Flow Diagram
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/09cce614-33df-4b10-a9e6-05291df61cd5)
+
