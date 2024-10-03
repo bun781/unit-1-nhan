@@ -13,8 +13,10 @@ print(quiz012(70,50))
 ```
 
 ## Proof of Work
-![image](https://github.com/user-attachments/assets/c815f69b-0c50-4660-8bd2-33b470e06e77)
+![image](https://github.com/user-attachments/assets/8e441364-fbe6-43e0-a730-b126c49ed70f)
 
 
 ## Flow Chart
-![image](https://github.com/user-attachments/assets/fe349ae9-1a81-4de0-a001-665eeb22341c)
+![image](https://github.com/user-attachments/assets/b2bafe59-1719-455e-b155-710c437cb716)
+
+
