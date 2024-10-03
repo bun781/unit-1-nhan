@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/67a6cbf1-a77d-44f7-bb76-e2568c4927b8)# Quiz 010
+# Quiz 010
 
 ## Paper Solution
 
