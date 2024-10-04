@@ -33,4 +33,5 @@ print(quiz014(5678))
 ![image](https://github.com/user-attachments/assets/4477e6d6-33fc-4e96-bd05-0f336acfc46a)
 
 # Flow Diagram
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/1fbc0f82-c737-489a-87ec-943fc85fc10e)
+
