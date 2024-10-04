@@ -1,6 +1,4 @@
 # Quiz 013
-![image](https://github.com/user-attachments/assets/5f2b281f-c2b8-47ef-8cee-541abdc749e6)
-
 ## Paper Solution
 ![image](https://github.com/user-attachments/assets/6d1aadf5-edc6-4ea2-b7ee-4421e970e235)
 
