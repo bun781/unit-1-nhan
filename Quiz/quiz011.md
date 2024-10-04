@@ -40,4 +40,5 @@ print(quiz011('march'))
 ![image](https://github.com/user-attachments/assets/5a2eb210-fb3f-481d-92bc-1d5be7153ba4)
 
 ## Flow Diagram
-![image](https://github.com/user-attachments/assets/9e110911-4de6-4e91-8996-02eb131b1a1b)
+![image](https://github.com/user-attachments/assets/60f6bc0d-7b3c-4e5b-a73f-ee6704870ab3)
+
