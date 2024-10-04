@@ -1,8 +1,10 @@
 # Quiz 016
 
 ## Paper Solution
+![image](https://github.com/user-attachments/assets/a64b47d0-b571-4b1c-a264-e0abea8c93cf)
 
 ## Boolean Circuit
+![image](https://github.com/user-attachments/assets/f6700dc0-cef4-4fa2-a943-261fca83630a)
 
 ## Code
 ```.py
