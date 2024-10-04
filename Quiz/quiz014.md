@@ -1,6 +1,7 @@
 # Quiz 014
 
 # Paper Solution
+![image](https://github.com/user-attachments/assets/c5496182-e618-40cc-a593-436ee2df6e9a)
 
 # Code
 ```.py
