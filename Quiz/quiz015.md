@@ -1,6 +1,7 @@
 # Quiz 015
 
 ## Paper Solution
+![image](https://github.com/user-attachments/assets/74cc0e1c-7db1-403c-895d-f52d07f2b5e2)
 
 ## Code
 ```.py
